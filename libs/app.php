@@ -8,10 +8,13 @@ class App {
         $url = rtrim($url, '/');
         $url = explode('/', $url);
 
+        // cuando se ingresa sin definir controlador
         if(empty($url[0])) {
             $archivoController = 'controllers/main.php';
             require_once $archivoController;
             $controller = new Main();
+            $controller->loadModel('main');
+            $controller->render();
             return false;
         } 
 
@@ -19,10 +22,16 @@ class App {
 
         if(file_exists($archivoController)) {
             require_once $archivoController;
+    
+            // inicializa el controlador
             $controller = new $url[0];
+            $controller->loadModel($url[0]);
 
+            // si hay un método que se requiere cargar
             if(isset($url[1])) {
                 $controller->{$url[1]}();
+            } else {
+                $controller->render();
             }
         } else {
             $controller = new Errores();

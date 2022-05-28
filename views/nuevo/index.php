@@ -8,6 +8,14 @@
     <title>main</title>
 </head>
 <body>
-    <h1>Vista de main</h1>
+    <h1>Vista de nuevo</h1>
+    <p><?php echo $this->mensaje; ?></p>
+    <form action="<?php echo constant('URL'); ?>nuevo/registrar" method="POST">
+        <input type="text" name="matricula">
+        <input type="text" name="nombre">
+        <input type="text" name="apellido">
+
+        <input type="submit" value="enviar">
+    </form>
 </body>
 </html>
